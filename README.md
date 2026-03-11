@@ -23,8 +23,8 @@ A modern, professional employee management application built with Spring Boot an
 
 - JDK 17 or higher
 - Maven
-- Oracle Database (or compatible)
-
+- Oracle Database
+  
 ### Configuration
 
 1. Create a `.env` file in the root directory:
@@ -50,6 +50,14 @@ A modern, professional employee management application built with Spring Boot an
 ## Admin Registration
 
 If the `.env` file is missing or you need a new admin, use the "Register Admin" feature on the login page to create a local account.
+
+## Screenshots
+
+<img width="1197" height="726" alt="image" src="https://github.com/user-attachments/assets/20ea4577-6bb4-410b-a62f-6422889a065c" />
+
+<img width="1193" height="537" alt="image" src="https://github.com/user-attachments/assets/ea8e60b9-32ab-4a95-954a-c7975292e0c3" />
+
+<img width="1188" height="799" alt="image" src="https://github.com/user-attachments/assets/d4766eb9-d786-4224-8819-ab8f710c5dd3" />
 
 ---
 Developed by [Aditya Shankar](https://github.com/AdityaShankar1)
