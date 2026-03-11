@@ -31,14 +31,12 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         seedAdmin();
-        if (departmentRepository.count() == 0) {
-            seedData();
-        }
+        seedData();
     }
 
     private void seedAdmin() {
-        String adminUser = System.getProperty("ADMIN_USERNAME");
-        String adminPass = System.getProperty("ADMIN_PASSWORD");
+        String adminUser = System.getenv("ADMIN_USERNAME");
+        String adminPass = System.getenv("ADMIN_PASSWORD");
 
         if (adminUser != null && adminPass != null && !adminUser.isEmpty() && !adminPass.isEmpty()) {
             if (userRepository.findByUsername(adminUser).isEmpty()) {
@@ -50,32 +48,34 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void seedData() {
-        Department it = new Department();
-        it.setDeptName("IT");
-        it = departmentRepository.save(it);
+        Department it = departmentRepository.findByDeptName("IT")
+                .orElseGet(() -> {
+                    Department d = new Department();
+                    d.setDeptName("IT");
+                    return departmentRepository.save(d);
+                });
+        Department hr = departmentRepository.findByDeptName("HR")
+                .orElseGet(() -> {
+                    Department d = new Department();
+                    d.setDeptName("HR");
+                    return departmentRepository.save(d);
+                });
 
-        Department hr = new Department();
-        hr.setDeptName("HR");
-        hr = departmentRepository.save(hr);
+        updateOrCreateEmployee("John Doe", "john.doe@example.com", it, 85, 15.5, "Developed core backend services and optimized database queries.");
+        updateOrCreateEmployee("Jane Smith", "jane.smith@example.com", hr, 92, 12.0, "Spearheaded recruitment drive and improved employee engagement.");
 
-        Employee emp1 = new Employee();
-        emp1.setEmpName("John Doe");
-        emp1.setEmail("john.doe@example.com");
-        emp1.setDepartment(it);
-        emp1.setProductivityScore(85);
-        emp1.setLastSalaryHike(15.5);
-        emp1.setAccomplishments("Developed core backend services and optimized database queries.");
-        employeeRepository.save(emp1);
+        System.out.println("Sample data initialized/updated.");
+    }
 
-        Employee emp2 = new Employee();
-        emp2.setEmpName("Jane Smith");
-        emp2.setEmail("jane.smith@example.com");
-        emp2.setDepartment(hr);
-        emp2.setProductivityScore(92);
-        emp2.setLastSalaryHike(12.0);
-        emp2.setAccomplishments("Spearheaded recruitment drive and improved employee engagement.");
-        employeeRepository.save(emp2);
-
-        System.out.println("Sample data initialized.");
+    private void updateOrCreateEmployee(String name, String email, Department dept, Integer score, Double hike, String accomplishments) {
+        Employee emp = employeeRepository.findByEmail(email)
+                .orElse(new Employee());
+        emp.setEmpName(name);
+        emp.setEmail(email);
+        emp.setDepartment(dept);
+        emp.setProductivityScore(score);
+        emp.setLastSalaryHike(hike);
+        emp.setAccomplishments(accomplishments);
+        employeeRepository.save(emp);
     }
 }

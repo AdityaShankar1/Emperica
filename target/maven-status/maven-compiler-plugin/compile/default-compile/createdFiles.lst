@@ -1,6 +1,13 @@
+com/emperica/demo/controller/AiController.class
+com/emperica/demo/service/AiService.class
+com/emperica/demo/model/User.class
+com/emperica/demo/config/SecurityConfig.class
 com/emperica/demo/config/WebConfig$1.class
 com/emperica/demo/EmpericaApplication.class
+com/emperica/demo/repository/UserRepository.class
 com/emperica/demo/config/WebConfig.class
+com/emperica/demo/controller/AuthController.class
+com/emperica/demo/config/DataInitializer.class
 com/emperica/demo/repository/DepartmentRepository.class
 com/emperica/demo/model/Employee.class
 com/emperica/demo/controller/EmployeeController.class

@@ -2,6 +2,7 @@
 /Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/config/DataInitializer.java
 /Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/config/SecurityConfig.java
 /Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/config/WebConfig.java
+/Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/controller/AiController.java
 /Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/controller/AuthController.java
 /Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/controller/DepartmentController.java
 /Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/controller/EmployeeController.java
@@ -11,5 +12,6 @@
 /Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/repository/DepartmentRepository.java
 /Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/repository/EmployeeRepository.java
 /Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/repository/UserRepository.java
+/Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/service/AiService.java
 /Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/service/DepartmentService.java
 /Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/service/EmployeeService.java

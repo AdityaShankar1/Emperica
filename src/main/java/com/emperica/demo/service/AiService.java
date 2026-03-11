@@ -27,10 +27,13 @@ public class AiService {
                 "DO NOT recommend if they are the best employee and DO NOT rank them against others. " +
                 "Just provide a neutral, professional summary.\n\n" +
                 "Employee Name: %s\n" +
-                "Productivity Score: %d/100\n" +
-                "Last Salary Hike: %.1f%%\n" +
+                "Productivity Score: %s/100\n" +
+                "Last Salary Hike: %s%%\n" +
                 "Accomplishments: %s\n",
-                emp.getEmpName(), emp.getProductivityScore(), emp.getLastSalaryHike(), emp.getAccomplishments()
+                emp.getEmpName(), 
+                emp.getProductivityScore() != null ? emp.getProductivityScore().toString() : "N/A",
+                emp.getLastSalaryHike() != null ? String.format("%.1f", emp.getLastSalaryHike()) : "N/A",
+                emp.getAccomplishments() != null ? emp.getAccomplishments() : "No accomplishments recorded."
         );
 
         return chatClient.prompt(new Prompt(promptText)).call().content();
