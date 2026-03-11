@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emperica | Employee Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); }
+        .gradient-bg { background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%); }
+    </style>
+</head>
+<body class="gradient-bg text-slate-200 min-h-screen flex flex-col">
+
+    <!-- Auth Section -->
+    <div id="authContainer" class="flex-grow flex items-center justify-center p-4">
+        <div class="glass w-full max-w-md p-8 rounded-2xl border border-slate-700 shadow-2xl">
+            <h1 class="text-3xl font-bold text-center mb-2 bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">Emperica</h1>
+            <p class="text-slate-400 text-center mb-8" id="authTitle">Sign in to manage employees</p>
+            
+            <div id="loginForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Username</label>
+                    <input type="text" id="username" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Password</label>
+                    <input type="password" id="password" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+                </div>
+                <button onclick="handleLogin()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition-colors shadow-lg">Sign In</button>
+                <p class="text-center text-sm text-slate-400">
+                    No account? <a href="#" onclick="toggleAuth(true)" class="text-blue-400 hover:underline">Register Admin</a>
+                </p>
+            </div>
+
+            <div id="registerForm" class="space-y-4 hidden">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Admin Username</label>
+                    <input type="text" id="regUsername" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 outline-none transition-all">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Password</label>
+                    <input type="password" id="regPassword" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 outline-none transition-all">
+                </div>
+                <button onclick="handleRegister()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 rounded-lg transition-colors shadow-lg">Register Admin</button>
+                <p class="text-center text-sm text-slate-400">
+                    Already have an account? <a href="#" onclick="toggleAuth(false)" class="text-blue-400 hover:underline">Sign In</a>
+                </p>
+            </div>
+            <div id="authMessage" class="mt-4 text-center text-sm hidden"></div>
+        </div>
+    </div>
+
+    <!-- Main Content (Dashboard) -->
+    <div id="mainContent" class="hidden flex-grow flex flex-col">
+        <nav class="glass border-b border-slate-700 p-4 sticky top-0 z-10">
+            <div class="container mx-auto flex justify-between items-center">
+                <h1 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">Emperica Dashboard</h1>
+                <div class="flex items-center gap-4">
+                    <span id="userDisplay" class="text-sm font-medium text-slate-400"></span>
+                    <button onclick="handleLogout()" class="text-sm bg-slate-700 hover:bg-slate-600 px-4 py-1.5 rounded-lg transition-colors">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <main class="container mx-auto p-4 lg:p-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+                <div>
+                    <h2 class="text-2xl font-semibold">Employees</h2>
+                    <p class="text-slate-400">Manage your workforce efficiently.</p>
+                </div>
+                <button onclick="openModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium shadow-lg transition-all flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    Add Employee
+                </button>
+            </div>
+
+            <div id="errorMessage" class="hidden bg-red-900/50 border border-red-500 text-red-200 px-4 py-3 rounded-xl mb-6 flex items-center gap-2">
+                <svg class="w-5 h-5 text-red-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                <span id="errorText"></span>
+            </div>
+
+            <div class="glass border border-slate-700 rounded-2xl overflow-hidden shadow-xl">
+                <table class="w-full text-left">
+                    <thead class="bg-slate-800/50 text-slate-400 text-xs uppercase tracking-wider">
+                        <tr>
+                            <th class="px-6 py-4 font-semibold">Employee</th>
+                            <th class="px-6 py-4 font-semibold">Contact</th>
+                            <th class="px-6 py-4 font-semibold">Department</th>
+                            <th class="px-6 py-4 font-semibold text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeeTable" class="divide-y divide-slate-700"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Employee Modal -->
+    <div id="employeeModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="glass w-full max-w-md p-8 rounded-2xl border border-slate-700 shadow-2xl">
+            <h2 id="modalTitle" class="text-2xl font-bold mb-6">Add Employee</h2>
+            <form id="employeeForm" onsubmit="handleEmployeeSubmit(event)" class="space-y-4">
+                <input type="hidden" id="empId">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Full Name</label>
+                    <input type="text" id="empName" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Email Address</label>
+                    <input type="email" id="email" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Department</label>
+                    <select id="empDept" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">Select Department</option>
+                    </select>
+                </div>
+                <div class="flex gap-4 pt-4">
+                    <button type="button" onclick="closeModal()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-medium py-2 rounded-lg transition-colors">Cancel</button>
+                    <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg transition-colors shadow-lg">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8080';
+        let authHeader = localStorage.getItem('auth');
+
+        function toggleAuth(isReg) {
+            document.getElementById('loginForm').classList.toggle('hidden', isReg);
+            document.getElementById('registerForm').classList.toggle('hidden', !isReg);
+            document.getElementById('authTitle').innerText = isReg ? 'Create an admin account' : 'Sign in to manage employees';
+            document.getElementById('authMessage').classList.add('hidden');
+        }
+
+        async function handleLogin() {
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            const msg = document.getElementById('authMessage');
+            
+            const creds = btoa(`${u}:${p}`);
+            try {
+                const res = await fetch(`${API_URL}/auth/login`, {
+                    headers: { 'Authorization': `Basic ${creds}` }
+                });
+                if (res.ok) {
+                    localStorage.setItem('auth', creds);
+                    localStorage.setItem('username', u);
+                    authHeader = creds;
+                    initApp();
+                } else {
+                    msg.innerText = 'Invalid credentials';
+                    msg.className = 'mt-4 text-center text-sm text-red-400';
+                    msg.classList.remove('hidden');
+                }
+            } catch (err) {
+                msg.innerText = 'Server unavailable';
+                msg.classList.remove('hidden');
+            }
+        }
+
+        async function handleRegister() {
+            const u = document.getElementById('regUsername').value;
+            const p = document.getElementById('regPassword').value;
+            const msg = document.getElementById('authMessage');
+            
+            try {
+                const res = await fetch(`${API_URL}/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: u, password: p })
+                });
+                if (res.ok) {
+                    msg.innerText = 'Registered! Please sign in.';
+                    msg.className = 'mt-4 text-center text-sm text-emerald-400';
+                    toggleAuth(false);
+                } else {
+                    const txt = await res.text();
+                    msg.innerText = txt || 'Registration failed';
+                    msg.className = 'mt-4 text-center text-sm text-red-400';
+                }
+                msg.classList.remove('hidden');
+            } catch (err) {
+                msg.innerText = 'Server unavailable';
+                msg.classList.remove('hidden');
+            }
+        }
+
+        function handleLogout() {
+            localStorage.clear();
+            authHeader = null;
+            location.reload();
+        }
+
+        async function initApp() {
+            if (!authHeader) return;
+            document.getElementById('authContainer').classList.add('hidden');
+            document.getElementById('mainContent').classList.remove('hidden');
+            document.getElementById('userDisplay').innerText = `Hello, ${localStorage.getItem('username')}`;
+            await loadDepartments();
+            await loadEmployees();
+        }
+
+        async function loadDepartments() {
+            try {
+                const res = await fetch(`${API_URL}/departments`, {
+                    headers: { 'Authorization': `Basic ${authHeader}` }
+                });
+                const depts = await res.json();
+                const select = document.getElementById('empDept');
+                select.innerHTML = '<option value="">Select Department</option>';
+                depts.forEach(d => {
+                    select.innerHTML += `<option value="${d.deptId}">${d.deptName}</option>`;
+                });
+            } catch (err) { console.error('Error loading depts', err); }
+        }
+
+        async function loadEmployees() {
+            const tbody = document.getElementById('employeeTable');
+            const errorDiv = document.getElementById('errorMessage');
+            try {
+                const res = await fetch(`${API_URL}/employees`, {
+                    headers: { 'Authorization': `Basic ${authHeader}` }
+                });
+                if (!res.ok) throw new Error('Failed to fetch employees');
+                const employees = await res.json();
+                
+                tbody.innerHTML = '';
+                if (employees.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" class="px-6 py-8 text-center text-slate-500 italic">No employees found in the system.</td></tr>';
+                } else {
+                    employees.forEach(emp => {
+                        const row = `
+                            <tr class="hover:bg-slate-800/30 transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="font-medium text-slate-100">${emp.empName}</div>
+                                    <div class="text-xs text-slate-500 uppercase">ID: ${emp.empId}</div>
+                                </td>
+                                <td class="px-6 py-4 text-slate-300 text-sm">${emp.email}</td>
+                                <td class="px-6 py-4">
+                                    <span class="px-2 py-1 rounded-md text-xs font-semibold ${emp.department ? 'bg-blue-500/10 text-blue-400' : 'bg-slate-700 text-slate-400'}">
+                                        ${emp.department ? emp.department.deptName : 'N/A'}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button onclick="editEmployee(${JSON.stringify(emp).replace(/"/g, '&quot;')})" class="text-blue-400 hover:text-blue-300 mr-4 transition-colors">Edit</button>
+                                    <button onclick="deleteEmployee(${emp.empId})" class="text-red-400 hover:text-red-300 transition-colors">Delete</button>
+                                </td>
+                            </tr>`;
+                        tbody.innerHTML += row;
+                    });
+                }
+                errorDiv.classList.add('hidden');
+            } catch (err) {
+                document.getElementById('errorText').innerText = err.message;
+                errorDiv.classList.remove('hidden');
+            }
+        }
+
+        async function handleEmployeeSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('empId').value;
+            const data = {
+                empName: document.getElementById('empName').value,
+                email: document.getElementById('email').value,
+                department: { deptId: document.getElementById('empDept').value }
+            };
+
+            try {
+                const method = id ? 'PUT' : 'POST';
+                const url = id ? `${API_URL}/employees/${id}` : `${API_URL}/employees`;
+                const res = await fetch(url, {
+                    method: method,
+                    headers: { 
+                        'Authorization': `Basic ${authHeader}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                if (res.ok) {
+                    closeModal();
+                    loadEmployees();
+                } else {
+                    alert('Save failed');
+                }
+            } catch (err) { console.error('Error saving', err); }
+        }
+
+        async function deleteEmployee(id) {
+            if (!confirm('Are you sure you want to delete this employee?')) return;
+            try {
+                const res = await fetch(`${API_URL}/employees/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Basic ${authHeader}` }
+                });
+                if (res.ok) loadEmployees();
+            } catch (err) { console.error('Error deleting', err); }
+        }
+
+        function openModal() {
+            document.getElementById('modalTitle').innerText = 'Add Employee';
+            document.getElementById('employeeForm').reset();
+            document.getElementById('empId').value = '';
+            document.getElementById('employeeModal').classList.remove('hidden');
+            document.getElementById('employeeModal').classList.add('flex');
+        }
+
+        function editEmployee(emp) {
+            document.getElementById('modalTitle').innerText = 'Edit Employee';
+            document.getElementById('empId').value = emp.empId;
+            document.getElementById('empName').value = emp.empName;
+            document.getElementById('email').value = emp.email;
+            document.getElementById('empDept').value = emp.department ? emp.department.deptId : '';
+            document.getElementById('employeeModal').classList.remove('hidden');
+            document.getElementById('employeeModal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('employeeModal').classList.add('hidden');
+            document.getElementById('employeeModal').classList.remove('flex');
+        }
+
+        // Check if logged in on load
+        if (authHeader) initApp();
+    </script>
+</body>
+</html>

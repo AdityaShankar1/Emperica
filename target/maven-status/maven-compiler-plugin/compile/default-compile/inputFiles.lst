@@ -1,4 +1,6 @@
 /Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/EmpericaApplication.java
+/Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/config/DataInitializer.java
+/Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/config/WebConfig.java
 /Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/controller/DepartmentController.java
 /Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/controller/EmployeeController.java
 /Users/adityashankar/Oracle_Spring_Project/src/main/java/com/emperica/demo/model/Department.java
