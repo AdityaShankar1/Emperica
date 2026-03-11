@@ -1,9 +1,9 @@
+com/emperica/demo/config/WebConfig$1.class
+com/emperica/demo/EmpericaApplication.class
 com/emperica/demo/config/WebConfig.class
 com/emperica/demo/repository/DepartmentRepository.class
 com/emperica/demo/model/Employee.class
 com/emperica/demo/controller/EmployeeController.class
 com/emperica/demo/model/Department.class
-com/emperica/demo/config/WebConfig$1.class
-com/emperica/demo/EmpericaApplication.class
 com/emperica/demo/repository/EmployeeRepository.class
 com/emperica/demo/controller/DepartmentController.class

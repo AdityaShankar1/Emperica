@@ -62,12 +62,18 @@ public class DataInitializer implements CommandLineRunner {
         emp1.setEmpName("John Doe");
         emp1.setEmail("john.doe@example.com");
         emp1.setDepartment(it);
+        emp1.setProductivityScore(85);
+        emp1.setLastSalaryHike(15.5);
+        emp1.setAccomplishments("Developed core backend services and optimized database queries.");
         employeeRepository.save(emp1);
 
         Employee emp2 = new Employee();
         emp2.setEmpName("Jane Smith");
         emp2.setEmail("jane.smith@example.com");
         emp2.setDepartment(hr);
+        emp2.setProductivityScore(92);
+        emp2.setLastSalaryHike(12.0);
+        emp2.setAccomplishments("Spearheaded recruitment drive and improved employee engagement.");
         employeeRepository.save(emp2);
 
         System.out.println("Sample data initialized.");

@@ -16,6 +16,12 @@ public class Employee {
     @JoinColumn(name = "dept_id")
     private Department department;
 
+    private Integer productivityScore;
+    private Double lastSalaryHike;
+
+    @Column(length = 2000)
+    private String accomplishments;
+
     // Getters and Setters
     public Long getEmpId() {
         return empId;
@@ -43,5 +49,26 @@ public class Employee {
     }
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public Integer getProductivityScore() {
+        return productivityScore;
+    }
+    public void setProductivityScore(Integer productivityScore) {
+        this.productivityScore = productivityScore;
+    }
+
+    public Double getLastSalaryHike() {
+        return lastSalaryHike;
+    }
+    public void setLastSalaryHike(Double lastSalaryHike) {
+        this.lastSalaryHike = lastSalaryHike;
+    }
+
+    public String getAccomplishments() {
+        return accomplishments;
+    }
+    public void setAccomplishments(String accomplishments) {
+        this.accomplishments = accomplishments;
     }
 }

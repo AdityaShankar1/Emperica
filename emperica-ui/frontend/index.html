@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); }
+        .glass { background: rgba(255, 255, 255, 0.05); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
         .gradient-bg { background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%); }
     </style>
 </head>
@@ -22,12 +22,12 @@
             
             <div id="loginForm" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium mb-1">Username</label>
-                    <input type="text" id="username" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+                    <label for="username" class="block text-sm font-medium mb-1">Username</label>
+                    <input type="text" id="username" placeholder="Enter username" title="Username" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium mb-1">Password</label>
-                    <input type="password" id="password" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+                    <label for="password" class="block text-sm font-medium mb-1">Password</label>
+                    <input type="password" id="password" placeholder="Enter password" title="Password" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
                 </div>
                 <button onclick="handleLogin()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition-colors shadow-lg">Sign In</button>
                 <p class="text-center text-sm text-slate-400">
@@ -37,12 +37,12 @@
 
             <div id="registerForm" class="space-y-4 hidden">
                 <div>
-                    <label class="block text-sm font-medium mb-1">Admin Username</label>
-                    <input type="text" id="regUsername" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 outline-none transition-all">
+                    <label for="regUsername" class="block text-sm font-medium mb-1">Admin Username</label>
+                    <input type="text" id="regUsername" placeholder="Enter admin username" title="Admin Username" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 outline-none transition-all">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium mb-1">Password</label>
-                    <input type="password" id="regPassword" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 outline-none transition-all">
+                    <label for="regPassword" class="block text-sm font-medium mb-1">Password</label>
+                    <input type="password" id="regPassword" placeholder="Enter password" title="Password" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 outline-none transition-all">
                 </div>
                 <button onclick="handleRegister()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 rounded-lg transition-colors shadow-lg">Register Admin</button>
                 <p class="text-center text-sm text-slate-400">
@@ -69,7 +69,7 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                 <div>
                     <h2 class="text-2xl font-semibold">Employees</h2>
-                    <p class="text-slate-400">Manage your workforce efficiently.</p>
+                    <p class="text-slate-400">Manage your workforce and performance insights.</p>
                 </div>
                 <button onclick="openModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium shadow-lg transition-all flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
@@ -105,16 +105,16 @@
             <form id="employeeForm" onsubmit="handleEmployeeSubmit(event)" class="space-y-4">
                 <input type="hidden" id="empId">
                 <div>
-                    <label class="block text-sm font-medium mb-1">Full Name</label>
-                    <input type="text" id="empName" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+                    <label for="empName" class="block text-sm font-medium mb-1">Full Name</label>
+                    <input type="text" id="empName" required placeholder="Full name" title="Full Name" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium mb-1">Email Address</label>
-                    <input type="email" id="email" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+                    <label for="email" class="block text-sm font-medium mb-1">Email Address</label>
+                    <input type="email" id="email" required placeholder="Email" title="Email" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium mb-1">Department</label>
-                    <select id="empDept" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+                    <label for="empDept" class="block text-sm font-medium mb-1">Department</label>
+                    <select id="empDept" title="Department" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500">
                         <option value="">Select Department</option>
                     </select>
                 </div>
@@ -123,6 +123,31 @@
                     <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg transition-colors shadow-lg">Save</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- AI Summary Modal -->
+    <div id="aiModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="glass w-full max-w-2xl p-8 rounded-2xl border border-slate-700 shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent flex items-center gap-2">
+                    <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    AI Performance Insight
+                </h2>
+                <button onclick="closeAiModal()" class="text-slate-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div id="aiLoading" class="flex flex-col items-center py-12 space-y-4">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-400"></div>
+                <p class="text-slate-400 italic">Consulting Qwen AI for employee summary...</p>
+            </div>
+            <div id="aiContent" class="hidden">
+                <div id="aiText" class="text-slate-300 leading-relaxed mb-8"></div>
+                <div class="flex justify-end">
+                    <button onclick="closeAiModal()" class="bg-slate-700 hover:bg-slate-600 text-white px-6 py-2 rounded-lg transition-colors">Close Insight</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -247,6 +272,7 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 text-right">
+                                    <button onclick="openAiSummary(${emp.empId})" class="text-purple-400 hover:text-purple-300 mr-4 transition-colors font-medium">Summarize</button>
                                     <button onclick="editEmployee(${JSON.stringify(emp).replace(/"/g, '&quot;')})" class="text-blue-400 hover:text-blue-300 mr-4 transition-colors">Edit</button>
                                     <button onclick="deleteEmployee(${emp.empId})" class="text-red-400 hover:text-red-300 transition-colors">Delete</button>
                                 </td>
@@ -259,6 +285,32 @@
                 document.getElementById('errorText').innerText = err.message;
                 errorDiv.classList.remove('hidden');
             }
+        }
+
+        async function openAiSummary(id) {
+            document.getElementById('aiModal').classList.remove('hidden');
+            document.getElementById('aiModal').classList.add('flex');
+            document.getElementById('aiLoading').classList.remove('hidden');
+            document.getElementById('aiContent').classList.add('hidden');
+
+            try {
+                const res = await fetch(`${API_URL}/ai/summarize/${id}`, {
+                    headers: { 'Authorization': `Basic ${authHeader}` }
+                });
+                const data = await res.json();
+                document.getElementById('aiText').innerText = data.summary || 'Summary unavailable.';
+                document.getElementById('aiLoading').classList.add('hidden');
+                document.getElementById('aiContent').classList.remove('hidden');
+            } catch (err) {
+                document.getElementById('aiText').innerText = 'Failed to load AI summary. Please check if Ollama is running.';
+                document.getElementById('aiLoading').classList.add('hidden');
+                document.getElementById('aiContent').classList.remove('hidden');
+            }
+        }
+
+        function closeAiModal() {
+            document.getElementById('aiModal').classList.add('hidden');
+            document.getElementById('aiModal').classList.remove('flex');
         }
 
         async function handleEmployeeSubmit(e) {

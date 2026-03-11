@@ -44,6 +44,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Spring AI Ollama -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-ollama-starter</artifactId>
+            <version>1.0.0-M2</version> <!-- Ensuring version is specified if not in BOM -->
+        </dependency>
+
         <!-- Spring AI Vector Store for Oracle (optional, future use) -->
         <dependency>
             <groupId>org.springframework.ai</groupId>

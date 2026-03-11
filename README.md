@@ -5,7 +5,8 @@ A modern, professional employee management application built with Spring Boot an
 ## Features
 
 - **Admin Authentication**: Secure login and registration for administrators using Basic Authentication.
-- **Employee CRUD**: Create, Read, Update, and Delete employee records.
+- **AI-Powered Summarization**: Get instant insights into employee performance and accomplishments using local Ollama AI (Qwen 2.5).
+- **Employee CRUD**: Create, Read, Update, and Delete employee records with performance metrics.
 - **Department Management**: Categorize employees by departments.
 - **Modern UI**: A sleek, dark-mode dashboard designed with Tailwind CSS for a premium feel.
 - **Environment Support**: Configuration via `.env` files for sensitive credentials.
@@ -31,7 +32,11 @@ A modern, professional employee management application built with Spring Boot an
    ADMIN_USERNAME=admin
    ADMIN_PASSWORD=admin123
    ```
-2. Configure your database connection in `src/main/resources/application.properties` (or as per your existing setup).
+2. **AI Setup**: Ensure [Ollama](https://ollama.com) is installed and running:
+   ```bash
+   ollama run qwen2.5:0.5b
+   ```
+3. Configure your database connection in `src/main/resources/application.yaml`.
 
 ### Running the Application
 
